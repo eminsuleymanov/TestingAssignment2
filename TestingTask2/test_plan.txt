@@ -1,0 +1,27 @@
+Test Plan – DemoBlaze Automation
+
+Test Case 1: Sign Up
+1. Open https://www.demoblaze.com
+2. Click 'Sign up'
+3. Enter username and password
+4. Click 'Sign up' button
+5. Verify user is registered (alert appears)
+
+Test Case 2: Log In
+1. Open https://www.demoblaze.com
+2. Click 'Log in'
+3. Enter valid credentials
+4. Click 'Log in' button
+5. Verify user logged in (Welcome text appears)
+
+Test Case 3: Log Out
+1. Log in with valid credentials
+2. Click 'Log out'
+3. Verify user is logged out (Login button visible again)
+
+Test Case 4: Buy Product
+1. Log in with valid credentials
+2. Select a product (Nokia lumia 1520)
+3. Click 'Add to cart'
+4. Product added (alert appears)
+
