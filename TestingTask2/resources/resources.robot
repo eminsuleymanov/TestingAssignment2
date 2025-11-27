@@ -2,54 +2,50 @@
 Library     SeleniumLibrary
 Variables   ./testData.py
 Variables   ./locators.py
+Suite Setup    Open Browser For Test
+Suite Teardown    Close Browser
 
 *** Keywords ***
 
+Open BrowserStack Session
+    [Arguments]    ${browser_config}
+    Create WebDriver    Remote    desired_capabilities=${browser_config}    command_executor=https://$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY@hub-cloud.browserstack.com/wd/hub
+
+
 Sign Up
-    Open Browser    ${baseUrl}    Chrome
-    Wait Until Page Contains Element    ${signUpButton}    timeout=80    error=signUpButtonNotFound
-    Sleep    1s
+    Wait Until Page Contains Element    ${signUpButton}    timeout=20
     Click Element    ${signUpButton}
-    Wait Until Page Contains Element    ${signUpUsername}    timeout=80    error=signUpUsernameNotFound
-    Sleep    1s
+    Wait Until Page Contains Element    ${signUpUsername}    timeout=20
     Input Text    ${signUpUsername}    ${login}
-    Sleep    2s
     Input Password    ${signUpPassword}    ${password}
-    Sleep    2s
     Click Element    ${signUpFormButton}
-    Sleep    3s
+    Wait Until Page Contains    Successfully registered    timeout=10
 
 Log In
-    Open Browser    ${baseUrl}    Chrome
-    Wait Until Page Contains Element    ${logInButton}    timeout=80    error=logInButtonNotFound
-    Sleep    1s
+    Wait Until Page Contains Element    ${logInButton}    timeout=20
     Click Element    ${logInButton}
-    Wait Until Page Contains Element    ${loginUsernameField}    timeout=80    error=loginUsernameFieldNotFound
-    Sleep    1s
+    Wait Until Page Contains Element    ${loginUsernameField}    timeout=20
     Input Text    ${loginUsernameField}    ${login}
     Input Password    ${loginPasswordField}    ${password}
-    Sleep    1s
     Click Element    ${logInFormButton}
-    Sleep    2s
+    Wait Until Page Contains    Welcome    timeout=10
 
 Log Out
-    Wait Until Page Contains Element    ${logoutButton}    timeout=15
-    Sleep    1s
+    Wait Until Element Is Visible    ${logoutButton}    timeout=15
+    Wait Until Element Is Enabled    ${logoutButton}    timeout=10
     Click Element    ${logoutButton}
-    Sleep    2s
+    Wait Until Page Contains    Logged out successfully    timeout=10
 
 Add Product To Cart
-    Sleep    3s
-    ${product_locator}=    Set Variable    //a[contains(text(),"${productName}")]
+    [Arguments]    ${product_name}=${productName}
+    ${product_locator}=    Set Variable    //a[contains(text(),"${product_name}")]
     Wait Until Page Contains Element    ${product_locator}    timeout=20
     Scroll Element Into View    ${product_locator}
-    Sleep    1s
     Click Element    ${product_locator}
     Wait Until Page Contains Element    ${addToCartButton}    timeout=10
-    Sleep    1s
     Click Element    ${addToCartButton}
-    Sleep    2s
+    Wait Until Alert Is Present    timeout=5
     Handle Alert    accept
-    Sleep    1s
+
 Close Browser
     Close All Browsers

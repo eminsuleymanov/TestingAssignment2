@@ -13,9 +13,9 @@ loginPasswordField = '//input[@id="loginpassword"]'
 logInFormButton = '//button[text()="Log in"]'
 
 # ---------- Log Out ----------
-logoutButton = '//a[@id="logout2"]'
+logoutButton = '//*[@id="logout2"]'
 
-# ---------- Product / Cart ----------
+# ---------- Product Cart ----------
 addToCartButton = '//a[text()="Add to cart"]'
 cartLink = '//a[@id="cartur"]'
 placeOrderButton = '//button[text()="Place Order"]'
