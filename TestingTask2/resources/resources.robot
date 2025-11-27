@@ -2,8 +2,7 @@
 Library     SeleniumLibrary
 Variables   ./testData.py
 Variables   ./locators.py
-Suite Setup    Open Browser For Test
-Suite Teardown    Close Browser
+
 
 *** Keywords ***
 
