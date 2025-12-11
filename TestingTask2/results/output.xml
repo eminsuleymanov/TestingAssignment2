@@ -1,88 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.9.7 on darwin)" generated="2025-12-11T07:42:48.994966" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.9.7 on darwin)" generated="2025-12-11T08:26:09.822092" rpa="false" schemaversion="5">
 <suite id="s1" name="Sign Up Test" source="/Users/eminsuleymanov/PycharmProjects/TestingTask2/tests/sign_up_test.robot">
 <kw name="Open BrowserStack Session" owner="resources" type="SETUP">
 <kw name="Get Environment Variable" owner="OperatingSystem">
-<msg time="2025-12-11T07:42:49.112061" level="INFO">${username} = eminsuleymanov_Owjf1u</msg>
+<msg time="2025-12-11T08:26:09.927247" level="INFO">${username} = eminsuleymanov_Owjf1u</msg>
 <var>${username}</var>
 <arg>BROWSERSTACK_USERNAME</arg>
 <doc>Returns the value of an environment variable with the given name.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.111948" elapsed="0.000135"/>
+<status status="PASS" start="2025-12-11T08:26:09.927136" elapsed="0.000138"/>
 </kw>
 <kw name="Get Environment Variable" owner="OperatingSystem">
-<msg time="2025-12-11T07:42:49.112242" level="INFO">${access_key} = qFtq3xENexxqXhF8s694</msg>
+<msg time="2025-12-11T08:26:09.927429" level="INFO">${access_key} = qFtq3xENexxqXhF8s694</msg>
 <var>${access_key}</var>
 <arg>BROWSERSTACK_ACCESS_KEY</arg>
 <doc>Returns the value of an environment variable with the given name.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.112159" elapsed="0.000100"/>
+<status status="PASS" start="2025-12-11T08:26:09.927346" elapsed="0.000099"/>
 </kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-12-11T07:42:49.112417" level="INFO">${base_url} = https://www.demoblaze.com</msg>
-<var>${base_url}</var>
-<arg>${baseUrl}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.112324" elapsed="0.000109"/>
+<kw name="Get Variable Value" owner="BuiltIn">
+<msg time="2025-12-11T08:26:09.927621" level="INFO">${browser} = firefox</msg>
+<var>${browser}</var>
+<arg>${BROWSER}</arg>
+<arg>chrome</arg>
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<status status="PASS" start="2025-12-11T08:26:09.927510" elapsed="0.000127"/>
 </kw>
+<kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-12-11T07:42:49.112721" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x106957e50&gt;</msg>
-<var>${chrome_options}</var>
-<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys.modules['selenium.webdriver'].FirefoxOptions()</arg>
 <arg>sys, selenium.webdriver</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.112499" elapsed="0.000241"/>
+<status status="PASS" start="2025-12-11T08:26:09.927925" elapsed="0.000113"/>
+</kw>
+<msg time="2025-12-11T08:26:09.928096" level="INFO">${options} = &lt;selenium.webdriver.firefox.options.Options object at 0x10791de50&gt;</msg>
+<var>${options}</var>
+<arg>'${browser}' == 'chrome'</arg>
+<arg>Evaluate</arg>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<arg>ELSE IF</arg>
+<arg>'${browser}' == 'firefox'</arg>
+<arg>Evaluate</arg>
+<arg>sys.modules['selenium.webdriver'].FirefoxOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<arg>ELSE IF</arg>
+<arg>'${browser}' == 'safari'</arg>
+<arg>Evaluate</arg>
+<arg>sys.modules['selenium.webdriver'].SafariOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-11T08:26:09.927705" elapsed="0.000408"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-11T08:26:09.928300" level="INFO">${os} = Windows</msg>
+<var>${os}</var>
+<arg>'${browser}' == 'safari'</arg>
+<arg>OS X</arg>
+<arg>Windows</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-11T08:26:09.928201" elapsed="0.000114"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-11T08:26:09.928471" level="INFO">${os_version} = 10</msg>
+<var>${os_version}</var>
+<arg>'${browser}' == 'safari'</arg>
+<arg>Sequoia</arg>
+<arg>10</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-11T08:26:09.928379" elapsed="0.000107"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-11T08:26:09.928667" level="INFO">${browser_cap} = Firefox</msg>
+<var>${browser_cap}</var>
+<arg>'${browser}' == 'chrome'</arg>
+<arg>Chrome</arg>
+<arg>'${browser}' == 'firefox'</arg>
+<arg>Firefox</arg>
+<arg>'${browser}' == 'safari'</arg>
+<arg>Safari</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-11T08:26:09.928548" elapsed="0.000135"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-11T07:42:49.113051" level="INFO">${bstack_caps} = {'userName': 'eminsuleymanov_Owjf1u', 'accessKey': 'qFtq3xENexxqXhF8s694', 'buildName': 'demoblaze-build-1', 'projectName': 'Demoblaze automation', 'os': 'Windows', 'osVersion': '10'}</msg>
+<msg time="2025-12-11T08:26:09.929025" level="INFO">${bstack_caps} = {'userName': 'eminsuleymanov_Owjf1u', 'accessKey': 'qFtq3xENexxqXhF8s694', 'buildName': 'demoblaze-build-1', 'projectName': 'Demoblaze automation', 'os': 'Windows', 'osVersion': '10', 'video': 'true',...</msg>
 <var>${bstack_caps}</var>
 <arg>userName=${username}</arg>
 <arg>accessKey=${access_key}</arg>
 <arg>buildName=demoblaze-build-1</arg>
 <arg>projectName=Demoblaze automation</arg>
-<arg>os=Windows</arg>
-<arg>osVersion=10</arg>
+<arg>os=${os}</arg>
+<arg>osVersion=${os_version}</arg>
+<arg>video=true</arg>
+<arg>debug=true</arg>
+<arg>networkLogs=true</arg>
+<arg>consoleLogs=errors</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.112815" elapsed="0.000255"/>
+<status status="PASS" start="2025-12-11T08:26:09.928752" elapsed="0.000290"/>
 </kw>
 <kw name="Call Method" owner="BuiltIn">
-<arg>${chrome_options}</arg>
+<arg>${options}</arg>
 <arg>set_capability</arg>
 <arg>bstack:options</arg>
 <arg>${bstack_caps}</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.113147" elapsed="0.000103"/>
+<status status="PASS" start="2025-12-11T08:26:09.929116" elapsed="0.000094"/>
 </kw>
 <kw name="Call Method" owner="BuiltIn">
-<arg>${chrome_options}</arg>
+<arg>${options}</arg>
 <arg>set_capability</arg>
 <arg>browserName</arg>
-<arg>Chrome</arg>
+<arg>${browser_cap}</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.113317" elapsed="0.000083"/>
+<status status="PASS" start="2025-12-11T08:26:09.929271" elapsed="0.000088"/>
 </kw>
 <kw name="Create Webdriver" owner="SeleniumLibrary">
-<msg time="2025-12-11T07:42:49.113580" level="INFO">Creating an instance of the Remote WebDriver.</msg>
+<msg time="2025-12-11T08:26:09.929524" level="INFO">Creating an instance of the Remote WebDriver.</msg>
 <arg>Remote</arg>
 <arg>command_executor=https://hub-cloud.browserstack.com/wd/hub</arg>
-<arg>options=${chrome_options}</arg>
+<arg>options=${options}</arg>
 <doc>Creates an instance of Selenium WebDriver.</doc>
-<status status="PASS" start="2025-12-11T07:42:49.113466" elapsed="5.636249"/>
+<status status="PASS" start="2025-12-11T08:26:09.929423" elapsed="17.594228"/>
 </kw>
 <kw name="Go To" owner="SeleniumLibrary">
-<msg time="2025-12-11T07:42:54.751246" level="INFO">Opening url 'https://www.demoblaze.com'</msg>
-<arg>${base_url}</arg>
+<msg time="2025-12-11T08:26:27.526478" level="INFO">Opening url 'https://www.demoblaze.com'</msg>
+<arg>${baseUrl}</arg>
 <doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2025-12-11T07:42:54.750558" elapsed="2.109481"/>
+<status status="PASS" start="2025-12-11T08:26:27.525266" elapsed="8.688216"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2025-12-11T07:42:56.861161" elapsed="1.022222"/>
+<status status="PASS" start="2025-12-11T08:26:36.214594" elapsed="0.613072"/>
 </kw>
 <kw name="Set Selenium Timeout" owner="SeleniumLibrary">
 <arg>30s</arg>
 <doc>Sets the timeout that is used by various keywords.</doc>
-<status status="PASS" start="2025-12-11T07:42:57.884448" elapsed="0.304909"/>
+<status status="PASS" start="2025-12-11T08:26:36.828792" elapsed="0.305944"/>
 </kw>
-<status status="PASS" start="2025-12-11T07:42:49.111475" elapsed="9.078632"/>
+<status status="PASS" start="2025-12-11T08:26:09.926661" elapsed="27.208774"/>
 </kw>
 <test id="s1-t1" name="User Can Sign Up Successfully" line="6">
 <kw name="Sign Up" owner="resources">
@@ -90,62 +143,62 @@
 <arg>${signUpButton}</arg>
 <arg>timeout=20</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-12-11T07:42:58.193673" elapsed="0.829523"/>
+<status status="PASS" start="2025-12-11T08:26:37.139494" elapsed="0.302880"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-12-11T07:42:59.025530" level="INFO">Clicking element '//a[@id="signin2"]'.</msg>
+<msg time="2025-12-11T08:26:37.444081" level="INFO">Clicking element '//a[@id="signin2"]'.</msg>
 <arg>${signUpButton}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-12-11T07:42:59.024416" elapsed="0.674600"/>
+<status status="PASS" start="2025-12-11T08:26:37.443312" elapsed="0.682039"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>${signUpUsername}</arg>
 <arg>timeout=20</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-12-11T07:42:59.700116" elapsed="0.332214"/>
+<status status="PASS" start="2025-12-11T08:26:38.126469" elapsed="0.339622"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-12-11T07:43:00.034100" level="INFO">Typing text 'emin1234' into text field '//input[@id="sign-username"]'.</msg>
+<msg time="2025-12-11T08:26:38.468840" level="INFO">Typing text 'emin1234' into text field '//input[@id="sign-username"]'.</msg>
 <arg>${signUpUsername}</arg>
 <arg>${login}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-12-11T07:43:00.033144" elapsed="1.454963"/>
+<status status="PASS" start="2025-12-11T08:26:38.467288" elapsed="0.919977"/>
 </kw>
 <kw name="Input Password" owner="SeleniumLibrary">
-<msg time="2025-12-11T07:43:01.490986" level="INFO">Typing password into text field '//input[@id="sign-password"]'.</msg>
-<msg time="2025-12-11T07:43:03.514498" level="INFO">Temporally setting log level to: NONE</msg>
+<msg time="2025-12-11T08:26:39.390020" level="INFO">Typing password into text field '//input[@id="sign-password"]'.</msg>
+<msg time="2025-12-11T08:26:40.001620" level="INFO">Temporally setting log level to: NONE</msg>
 <arg>${signUpPassword}</arg>
 <arg>${password}</arg>
 <doc>Types the given password into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-12-11T07:43:01.489340" elapsed="2.377056"/>
+<status status="PASS" start="2025-12-11T08:26:39.388441" elapsed="0.921591"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-12-11T07:43:03.867708" level="INFO">Clicking element '//button[text()="Sign up"]'.</msg>
+<msg time="2025-12-11T08:26:40.312753" level="INFO">Clicking element '//button[text()="Sign up"]'.</msg>
 <arg>${signUpFormButton}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-12-11T07:43:03.867004" elapsed="0.630141"/>
+<status status="PASS" start="2025-12-11T08:26:40.311502" elapsed="0.628319"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-12-11T07:43:06.500870" level="INFO">Slept 2 seconds.</msg>
+<msg time="2025-12-11T08:26:42.941763" level="INFO">Slept 2 seconds.</msg>
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-12-11T07:43:04.498284" elapsed="2.003288"/>
+<status status="PASS" start="2025-12-11T08:26:40.940802" elapsed="2.001240"/>
 </kw>
 <kw name="Handle Alert" owner="SeleniumLibrary">
-<msg time="2025-12-11T07:43:06.503553" level="INFO">HANDLE::&lt;class 'NoneType'&gt;::None</msg>
+<msg time="2025-12-11T08:26:42.942830" level="INFO">HANDLE::&lt;class 'NoneType'&gt;::None</msg>
 <arg>accept</arg>
 <doc>Handles the current alert and returns its message.</doc>
-<status status="PASS" start="2025-12-11T07:43:06.502714" elapsed="0.903280"/>
+<status status="PASS" start="2025-12-11T08:26:42.942462" elapsed="0.949982"/>
 </kw>
-<status status="PASS" start="2025-12-11T07:42:58.192673" elapsed="9.214052"/>
+<status status="PASS" start="2025-12-11T08:26:37.138327" elapsed="6.754365"/>
 </kw>
-<status status="PASS" start="2025-12-11T07:42:58.190592" elapsed="9.216934"/>
+<status status="PASS" start="2025-12-11T08:26:37.135945" elapsed="6.757120"/>
 </test>
 <kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" start="2025-12-11T07:43:07.409666" elapsed="1.843052"/>
+<status status="PASS" start="2025-12-11T08:26:43.894214" elapsed="1.894695"/>
 </kw>
-<status status="PASS" start="2025-12-11T07:42:48.996287" elapsed="20.256965"/>
+<status status="PASS" start="2025-12-11T08:26:09.822821" elapsed="35.966561"/>
 </suite>
 <statistics>
 <total>

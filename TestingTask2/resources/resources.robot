@@ -9,29 +9,45 @@ Variables   ./locators.py
 Open BrowserStack Session
     ${username}=    Get Environment Variable    BROWSERSTACK_USERNAME
     ${access_key}=    Get Environment Variable    BROWSERSTACK_ACCESS_KEY
-    ${base_url}=    Set Variable    ${baseUrl}
 
-    # Create Chrome options for Selenium 4
-    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    # Get browser from command line variable, default to chrome
+    ${browser}=    Get Variable Value    ${BROWSER}    chrome
 
-    # Set BrowserStack capabilities
+    # Create options based on browser type
+    ${options}=    Run Keyword If    '${browser}' == 'chrome'
+    ...    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    ...    ELSE IF    '${browser}' == 'firefox'
+    ...    Evaluate    sys.modules['selenium.webdriver'].FirefoxOptions()    sys, selenium.webdriver
+    ...    ELSE IF    '${browser}' == 'safari'
+    ...    Evaluate    sys.modules['selenium.webdriver'].SafariOptions()    sys, selenium.webdriver
+
+    # Set OS based on browser (Safari needs macOS)
+    ${os}=    Set Variable If    '${browser}' == 'safari'    OS X    Windows
+    ${os_version}=    Set Variable If    '${browser}' == 'safari'    Sequoia    10
+    ${browser_cap}=    Set Variable If    '${browser}' == 'chrome'    Chrome
+    ...    '${browser}' == 'firefox'    Firefox
+    ...    '${browser}' == 'safari'    Safari
+
     ${bstack_caps}=    Create Dictionary
     ...    userName=${username}
     ...    accessKey=${access_key}
     ...    buildName=demoblaze-build-1
     ...    projectName=Demoblaze automation
-    ...    os=Windows
-    ...    osVersion=10
+    ...    os=${os}
+    ...    osVersion=${os_version}
+    ...    video=true
+    ...    debug=true
+    ...    networkLogs=true
+    ...    consoleLogs=errors
 
-    Call Method    ${chrome_options}    set_capability    bstack:options    ${bstack_caps}
-    Call Method    ${chrome_options}    set_capability    browserName    Chrome
+    Call Method    ${options}    set_capability    bstack:options    ${bstack_caps}
+    Call Method    ${options}    set_capability    browserName    ${browser_cap}
 
-    # Connect to BrowserStack
     Create Webdriver    Remote
     ...    command_executor=https://hub-cloud.browserstack.com/wd/hub
-    ...    options=${chrome_options}
+    ...    options=${options}
 
-    Go To    ${base_url}
+    Go To    ${baseUrl}
     Maximize Browser Window
     Set Selenium Timeout    30s
 
