@@ -11,19 +11,27 @@ Open BrowserStack Session
     ${access_key}=    Get Environment Variable    BROWSERSTACK_ACCESS_KEY
     ${base_url}=    Set Variable    ${baseUrl}
 
-    ${caps}=    Create Dictionary
-    ...    browserName=chrome
+    # Create Chrome options for Selenium 4
+    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+
+    # Set BrowserStack capabilities
+    ${bstack_caps}=    Create Dictionary
+    ...    userName=${username}
+    ...    accessKey=${access_key}
+    ...    buildName=demoblaze-build-1
+    ...    projectName=Demoblaze automation
     ...    os=Windows
-    ...    os_version=10
-    ...    browserstack.user=${username}
-    ...    browserstack.key=${access_key}
-    ...    name=Demoblaze Test
-    ...    build=demoblaze-build-1
-    ...    project=Demoblaze automation
+    ...    osVersion=10
 
-    ${hub_url}=    Set Variable    https://${username}:${access_key}@hub-cloud.browserstack.com/wd/hub
+    Call Method    ${chrome_options}    set_capability    bstack:options    ${bstack_caps}
+    Call Method    ${chrome_options}    set_capability    browserName    Chrome
 
-    Open Browser    ${base_url}    remote_url=${hub_url}    desired_capabilities=${caps}
+    # Connect to BrowserStack
+    Create Webdriver    Remote
+    ...    command_executor=https://hub-cloud.browserstack.com/wd/hub
+    ...    options=${chrome_options}
+
+    Go To    ${base_url}
     Maximize Browser Window
     Set Selenium Timeout    30s
 
