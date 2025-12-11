@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+
+    environment {
+        BROWSERSTACK_USERNAME = credentials('browserstack-username')
+        BROWSERSTACK_ACCESS_KEY = credentials('browserstack-access-key')
+    }
+
+    stages {
+        stage('Setup') {
+            steps {
+                echo 'Installing dependencies...'
+                sh '''
+                    pip install --upgrade pip
+                    pip install robotframework
+                    pip install robotframework-seleniumlibrary
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo 'Running Robot Framework tests on BrowserStack...'
+                sh '''
+                    robot --outputdir results tests/
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Publishing test results...'
+            robot outputPath: 'results',
+                  logFileName: 'log.html',
+                  outputFileName: 'output.xml',
+                  reportFileName: 'report.html',
+                  passThreshold: 0,
+                  unstableThreshold: 0
+
+            archiveArtifacts artifacts: 'results/**/*', allowEmptyArchive: true
+        }
+        success {
+            echo 'Tests passed successfully!'
+        }
+        failure {
+            echo 'Tests failed. Check the logs for details.'
+        }
+    }
+}
